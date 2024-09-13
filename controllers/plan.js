@@ -44,4 +44,21 @@ const changePlan = async (req, res) => {
     }
 };
 
-module.exports = { getPlans, subscribe, changePlan };
+const associatePlan = async (req, res) => {
+    const { userId, planId } = req.body;
+    try {
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).send('Usuário não encontrado.');
+
+        const plan = await Plan.findById(planId);
+        if (!plan) return res.status(404).send('Plano não encontrado.');
+
+        user.plan = planId;
+        await user.save();
+        res.send('Plano associado com sucesso!');
+    } catch (error) {
+        res.status(500).send('Erro ao associar plano.');
+    }
+};
+
+module.exports = { getPlans, subscribe, changePlan, associatePlan };
