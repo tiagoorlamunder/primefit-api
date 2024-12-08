@@ -15,7 +15,7 @@ const getUserInfo = async (req, res) => {
     const { userId } = req.query;
     try {
         const user = await User.findById(userId).populate('plan').select('-password');
-        if (!user) return res.status(404).json({ message: 'User not found' });
+        if (!user) return res.status(404).json({ message: 'Usuário não encontrado' });
 
         const userInfo = {
             name: user.username,
@@ -54,7 +54,7 @@ const updateUser = async (req, res) => {
         delete updateData.password;
 
         const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true, runValidators: true }).select('-password');
-        if (!updatedUser) return res.status(404).json({ message: 'User not found' });
+        if (!updatedUser) return res.status(404).json({ message: 'Usuário não encontrado' });
 
         res.json({ message: 'User updated successfully', user: updatedUser });
     } catch (error) {
@@ -67,7 +67,7 @@ const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
         const deletedUser = await User.findByIdAndDelete(id);
-        if (!deletedUser) return res.status(404).json({ message: 'User not found' });
+        if (!deletedUser) return res.status(404).json({ message: 'Usuário não encontrado' });
 
         res.json({ message: 'User deleted successfully' });
     } catch (error) {

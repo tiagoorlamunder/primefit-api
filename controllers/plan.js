@@ -10,7 +10,7 @@ const getPlans = async (req, res) => {
         res.json(plans);
     } catch (error) {
         // Responde com erro em caso de falha
-        res.status(500).send('Erro ao obter planos.');
+        res.status(500).json({ message: 'Erro ao obter planos.' });
     }
 };
 
@@ -20,20 +20,20 @@ const subscribe = async (req, res) => {
     try {
         // Busca o usuário pelo ID
         const user = await User.findById(userId);
-        if (!user) return res.status(404).send('Usuário não enxcontrado.');
+        if (!user) return res.status(404).json({ message: 'Usuário não encontrado.' });
 
         // Busca o plano pelo ID
         const plan = await Plan.findById(planId);
-        if (!plan) return res.status(404).send('Plano não encontrado.');
+        if (!plan) return res.status(404).json({ message: 'Plano não encontrado.' });
 
         // Associa o plano ao usuário
         user.plan = planId;
         await user.save();
         // Responde com sucesso
-        res.send('Assinatura realizada com sucesso!');
+        res.json({ message: 'Assinatura realizada com sucesso!' });
     } catch (error) {
         // Responde com erro em caso de falha
-        res.status(500).send('Erro ao realizar assinatura.');
+        res.status(500).json({ message: 'Erro ao realizar assinatura.' });
     }
 };
 
@@ -43,20 +43,20 @@ const changePlan = async (req, res) => {
     try {
         // Busca o usuário pelo ID
         const user = await User.findById(userId);
-        if (!user) return res.status(404).send('Usuário não encontrado.');
+        if (!user) return res.status(404).json({ message: 'Usuário não encontrado.' });
 
         // Busca o novo plano pelo ID
         const plan = await Plan.findById(newPlanId);
-        if (!plan) return res.status(404).send('Novo plano não encontrado.');
+        if (!plan) return res.status(404).json({ message: 'Novo plano não encontrado.' });
 
         // Atualiza o plano do usuário
         user.plan = newPlanId;
         await user.save();
         // Responde com sucesso
-        res.send('Plano alterado com sucesso!');
+        res.json({ message: 'Plano alterado com sucesso!' });
     } catch (error) {
         // Responde com erro em caso de falha
-        res.status(500).send('Erro ao alterar plano.');
+        res.status(500).json({ message: 'Erro ao alterar plano.' });
     }
 };
 
@@ -66,20 +66,20 @@ const associatePlan = async (req, res) => {
     try {
         // Busca o usuário pelo ID
         const user = await User.findById(userId);
-        if (!user) return res.status(404).send('Usuário não encontrado.');
+        if (!user) return res.status(404).json({ message: 'Usuário não encontrado.' });
 
         // Busca o plano pelo ID
         const plan = await Plan.findById(planId);
-        if (!plan) return res.status(404).send('Plano não encontrado.');
+        if (!plan) return res.status(404).json({ message: 'Plano não encontrado.' });
 
         // Associa o plano ao usuário
         user.plan = planId;
         await user.save();
         // Responde com sucesso
-        res.send('Plano associado com sucesso!');
+        res.json({ message: 'Plano associado com sucesso!' });
     } catch (error) {
         // Responde com erro em caso de falha
-        res.status(500).send('Erro ao associar plano.');
+        res.status(500).json({ message: 'Erro ao associar plano.' });
     }
 };
 

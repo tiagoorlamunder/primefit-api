@@ -29,7 +29,7 @@ const login = async (req, res) => {
         const user = await User.findOne({ email });
         // Verifica se o usuário existe e se a senha fornecida é correta
         if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).send('Credenciais inválidas.');
+            return res.status(401).json({ message: 'Credenciais inválidas.' });
         }
         // Gera um token JWT para o usuário autenticado
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
