@@ -1,16 +1,16 @@
 const User = require('../models/user');
 
-// Get all users
+// Obter todos os usuários
 const getAllUsers = async (req, res) => {
     try {
         const users = await User.find({}, '-password');
         res.json(users);
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching users', error: error.message });
+        res.status(500).json({ message: 'Erro ao buscar usuários', error: error.message });
     }
 };
 
-// Get a specific user's info
+// Obter informações de um usuário específico
 const getUserInfo = async (req, res) => {
     const { userId } = req.query;
     try {
@@ -28,50 +28,50 @@ const getUserInfo = async (req, res) => {
 
         res.json(userInfo);
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching user info', error: error.message });
+        res.status(500).json({ message: 'Erro ao buscar informações do usuário', error: error.message });
     }
 };
 
-// Create a new user
+// Criar um novo usuário
 const createUser = async (req, res) => {
     try {
         const { username, email, password, phone } = req.body;
         const newUser = new User({ username, email, password, phone });
         await newUser.save();
-        res.status(201).json({ message: 'User created successfully', userId: newUser._id });
+        res.status(201).json({ message: 'Usuário criado com sucesso', userId: newUser._id });
     } catch (error) {
-        res.status(400).json({ message: 'Error creating user', error: error.message });
+        res.status(400).json({ message: 'Erro ao criar usuário', error: error.message });
     }
 };
 
-// Update a user
+// Atualizar informações de um usuário
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
         const updateData = req.body;
-        
-        // Prevent updating the password through this route
+
+        // Prevenir atualização da senha por esta rota
         delete updateData.password;
 
         const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true, runValidators: true }).select('-password');
         if (!updatedUser) return res.status(404).json({ message: 'Usuário não encontrado' });
 
-        res.json({ message: 'User updated successfully', user: updatedUser });
+        res.json({ message: 'Usuário atualizado com sucesso', user: updatedUser });
     } catch (error) {
-        res.status(400).json({ message: 'Error updating user', error: error.message });
+        res.status(400).json({ message: 'Erro ao atualizar usuário', error: error.message });
     }
 };
 
-// Delete a user
+// Excluir um usuário
 const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
         const deletedUser = await User.findByIdAndDelete(id);
         if (!deletedUser) return res.status(404).json({ message: 'Usuário não encontrado' });
 
-        res.json({ message: 'User deleted successfully' });
+        res.json({ message: 'Usuário excluído com sucesso' });
     } catch (error) {
-        res.status(500).json({ message: 'Error deleting user', error: error.message });
+        res.status(500).json({ message: 'Erro ao excluir usuário', error: error.message });
     }
 };
 
@@ -82,4 +82,3 @@ module.exports = {
     updateUser, 
     deleteUser 
 };
-
