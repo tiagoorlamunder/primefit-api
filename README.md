@@ -68,7 +68,7 @@ Este repositório contém a API do projeto **PrimeFit**, desenvolvida para geren
 ## Testes e Integração Contínua
 
 - Configurado com SonarQube para análise de qualidade do código.
-- CI/CD com deploy automatizado (em breve).
+- CI/CD com deploy automatizado.
 
 ---
 
