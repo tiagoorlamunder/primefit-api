@@ -63,7 +63,7 @@ Este repositório contém a API do projeto **PrimeFit**, desenvolvida para geren
    ```bash
    npm start
    ```
-5. Acesse a API em `http://localhost:5000`.
+5. Acesse a API em `http://127.0.0.1:5000`.
 
 ## Testes e Integração Contínua
 

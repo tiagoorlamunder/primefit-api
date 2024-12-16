@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 // Descreve o conjunto de testes para a rota /api/plans
 describe('Testes para a rota /api/plans', () => {
     let token;  // Variável para armazenar o token JWT gerado
-    const apiUrl = process.env.API_URL || 'https://primefit-api.onrender.com';  // URL da API, podendo ser lida do .env
+    const apiUrl = process.env.API_URL || 'http://127.0.0.1:5000';  // URL da API, podendo ser lida do .env
 
     // Hook antes de todos os testes para gerar o token JWT
     beforeAll(() => {

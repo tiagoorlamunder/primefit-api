@@ -5,7 +5,7 @@ const request = require('supertest');
 describe('Testando o login', () => {
   
   // Definindo a URL da API, que pode ser lida do arquivo .env ou uma URL padrão
-  const apiUrl = process.env.API_URL || 'https://primefit-api.onrender.com';
+  const apiUrl = process.env.API_URL || 'http://127.0.0.1:5000';
 
   // Teste 1: Verificando se o login é realizado com credenciais válidas
   it('deve realizar login com credenciais válidas', async () => {
